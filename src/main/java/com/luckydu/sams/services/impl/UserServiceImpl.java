@@ -1,6 +1,7 @@
 package com.luckydu.sams.services.impl;
 
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.luckydu.sams.entity.SysUser;
 import com.luckydu.sams.mapper.UserMapper;
 import com.luckydu.sams.services.UserService;
@@ -18,18 +19,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
-
-    private final UserMapper userMapper;
+public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements UserService {
 
     @Override
     public SysUser getUserById(int id) {
-        return userMapper.selectById(id);
+        return baseMapper.selectById(id);
     }
 
     @Override
     public Boolean createUser(SysUser sysUser) {
-        userMapper.insert(sysUser);
+        baseMapper.insert(sysUser);
         return Boolean.TRUE;
     }
 
