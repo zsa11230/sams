@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~      Copyright (c) 2018-2025, Wilson All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pig4cloud.pig.admin.mapper.SamsScoreMapper">
+
+	<resultMap id="samsScoreMap" type="com.pig4cloud.pig.admin.api.entity.SamsScore">
+		<id property="id" column="id"/>
+		<result property="courseId" column="course_id"/>
+		<result property="studentId" column="student_id"/>
+		<result property="examGrade" column="exam_grade"/>
+		<result property="partGrade" column="part_grade"/>
+		<result property="grade" column="grade"/>
+	</resultMap>
+</mapper>

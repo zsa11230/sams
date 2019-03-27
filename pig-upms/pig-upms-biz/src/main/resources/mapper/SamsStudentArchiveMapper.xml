@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~      Copyright (c) 2018-2025, Wilson All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pig4cloud.pig.admin.mapper.SamsStudentArchiveMapper">
+
+	<resultMap id="samsStudentArchivesManagementMap" type="com.pig4cloud.pig.admin.api.entity.SamsStudentArchive">
+		<id property="id" column="id"/>
+		<result property="realName" column="real_name"/>
+		<result property="nation" column="nation"/>
+		<result property="studentId" column="student_id"/>
+		<result property="sex" column="sex"/>
+		<result property="birthDate" column="birth_date"/>
+		<result property="personalInformation" column="personal_information"/>
+		<result property="honor" column="honor"/>
+		<result property="contactAddress" column="contact_address"/>
+		<result property="enrollment" column="enrollment"/>
+	</resultMap>
+</mapper>

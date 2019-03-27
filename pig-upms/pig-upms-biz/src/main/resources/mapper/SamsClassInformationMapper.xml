@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~      Copyright (c) 2018-2025, Wilson All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pig4cloud.pig.admin.mapper.SamsClassInformationMapper">
+
+	<resultMap id="samsClassInformationMap" type="com.pig4cloud.pig.admin.api.entity.SamsClassInformation">
+		<id property="id" column="id"/>
+		<result property="grade" column="grade"/>
+		<result property="classId" column="class_id"/>
+		<result property="className" column="class_name"/>
+		<result property="yearSystem" column="year_system"/>
+		<result property="headmaster" column="headmaster"/>
+		<result property="remarks" column="remarks"/>
+		<result property="profession" column="profession"/>
+		<result property="semester" column="semester"/>
+		<result property="title" column="title"/>
+	</resultMap>
+</mapper>
