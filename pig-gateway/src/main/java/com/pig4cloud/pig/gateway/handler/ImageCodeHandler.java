@@ -47,10 +47,6 @@ public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
 		//生成验证码
 		String text = generateVerifyCode(4);
 
-		//保存验证码信息
-		String randomStr = serverRequest.queryParam("randomStr").get();
-		redisTemplate.opsForValue().set(CommonConstants.DEFAULT_CODE_KEY + randomStr, text, 60, TimeUnit.SECONDS);
-
 		// 转换流信息写出
 		FastByteArrayOutputStream os = new FastByteArrayOutputStream();
 		try {
@@ -61,6 +57,10 @@ public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
 			return Mono.error(e);
 		}
 
+		//保存验证码信息
+		String randomStr = serverRequest.queryParam("randomStr").get();
+		redisTemplate.opsForValue().set(CommonConstants.DEFAULT_CODE_KEY + randomStr, text.toLowerCase(), 60, TimeUnit.SECONDS);
+
 		return ServerResponse
 			.status(HttpStatus.OK)
 			.contentType(MediaType.IMAGE_JPEG)
@@ -69,7 +69,7 @@ public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
 
 
 	//使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
-	public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+	public static final String VERIFY_CODES = "23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 	private static Random random = new Random();
 
 

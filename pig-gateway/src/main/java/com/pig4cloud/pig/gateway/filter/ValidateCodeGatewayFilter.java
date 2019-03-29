@@ -101,6 +101,7 @@ public class ValidateCodeGatewayFilter extends AbstractGatewayFilterFactory {
 	@SneakyThrows
 	private void checkCode(ServerHttpRequest request) {
 		String code = request.getQueryParams().getFirst("code");
+		code = code.toLowerCase();
 
 		if (StrUtil.isBlank(code)) {
 			throw new ValidateCodeException("验证码不能为空");
