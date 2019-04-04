@@ -87,6 +87,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		return sysUserRoleService.saveBatch(userRoleList);
 	}
 
+	@Override
+	public Integer getUserId() {
+		String username = SecurityUtils.getUser().getUsername();
+		SysUser user = baseMapper.selectOne(Wrappers.<SysUser>query()
+			.lambda().eq(SysUser::getUsername, username));
+		return user.getUserId();
+	}
+
 	/**
 	 * 通过查用户的全部信息
 	 *

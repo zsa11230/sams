@@ -24,6 +24,7 @@ import com.pig4cloud.pig.admin.api.dto.UserInfo;
 import com.pig4cloud.pig.admin.api.entity.SysUser;
 import com.pig4cloud.pig.admin.api.vo.UserVO;
 import com.pig4cloud.pig.common.core.util.R;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -96,4 +97,11 @@ public interface SysUserService extends IService<SysUser> {
 	 * @return success/fail
 	 */
 	Boolean saveUser(UserDTO userDto);
+
+	/**
+	 * 获取当前用户ID
+	 *
+	 * @return Integer id
+	 */
+	Integer getUserId();
 }
