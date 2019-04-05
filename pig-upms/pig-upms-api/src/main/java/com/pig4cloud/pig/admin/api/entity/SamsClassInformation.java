@@ -61,7 +61,7 @@ private static final long serialVersionUID = 1L;
    */
     private String semester;
     /**
-   * 课程名称
+   * 所属学院
    */
     private String title;
   

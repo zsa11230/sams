@@ -39,7 +39,7 @@ private static final long serialVersionUID = 1L;
     /**
    * 学号
    */
-    private Integer studentId;
+    private String studentId;
     /**
    * 性别
    */
@@ -47,7 +47,7 @@ private static final long serialVersionUID = 1L;
     /**
    * 出生年月
    */
-    private LocalDateTime birthDate;
+    private String birthDate;
     /**
    * 个人信息
    */
@@ -63,6 +63,18 @@ private static final long serialVersionUID = 1L;
     /**
    * 入学日期
    */
-    private LocalDateTime enrollment;
+    private String enrollment;
+	/**
+	 * 个人头像
+	 */
+	private String headImage;
+	/**
+	 * 当前用户id
+	 */
+	private Integer userId;
+	/**
+	 * 所属班级id
+	 */
+	private Integer classId;
   
 }

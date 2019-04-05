@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
 import com.pig4cloud.pig.admin.mapper.SamsClassInformationMapper;
 import com.pig4cloud.pig.admin.service.SamsClassInformationService;
+import com.pig4cloud.pig.common.core.util.R;
 import org.springframework.stereotype.Service;
 
 
@@ -19,4 +20,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SamsClassInformationServiceImpl extends ServiceImpl<SamsClassInformationMapper, SamsClassInformation> implements SamsClassInformationService {
 
+	@Override
+	public R create(SamsClassInformation samsClassInformation) {
+		baseMapper.insert(samsClassInformation);
+		return new R<>(samsClassInformation.getId());
+	}
 }

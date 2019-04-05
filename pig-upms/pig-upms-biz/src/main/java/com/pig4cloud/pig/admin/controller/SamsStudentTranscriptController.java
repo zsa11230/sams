@@ -20,7 +20,7 @@ import com.pig4cloud.pig.common.core.util.R;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/samsstudenttranscript")
+@RequestMapping("/transcript")
 public class SamsStudentTranscriptController {
 
   private final SamsStudentTranscriptService samsStudentTranscriptService;

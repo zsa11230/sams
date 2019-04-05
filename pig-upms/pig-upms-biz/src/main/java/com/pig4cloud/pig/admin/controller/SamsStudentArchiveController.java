@@ -20,10 +20,10 @@ import com.pig4cloud.pig.common.core.util.R;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/samsstudentarchivesmanagement")
+@RequestMapping("/archives")
 public class SamsStudentArchiveController {
 
-  private final SamsStudentArchiveService samsStudentArchivesManagementService;
+  private final SamsStudentArchiveService samsStudentArchivesService;
 
   /**
    * 分页查询
@@ -33,7 +33,7 @@ public class SamsStudentArchiveController {
    */
   @GetMapping("/page")
   public R getSamsStudentArchivesManagementPage(Page page, SamsStudentArchive samsStudentArchive) {
-    return  new R<>(samsStudentArchivesManagementService.page(page,Wrappers.query(samsStudentArchive)));
+    return  new R<>(samsStudentArchivesService.page(page,Wrappers.query(samsStudentArchive)));
   }
 
 
@@ -42,20 +42,29 @@ public class SamsStudentArchiveController {
    * @param id id
    * @return R
    */
-  @GetMapping("/{id}")
+  @GetMapping("/get/{id}")
   public R getById(@PathVariable("id") Integer id){
-    return new R<>(samsStudentArchivesManagementService.getById(id));
+    return new R<>(samsStudentArchivesService.getById(id));
   }
 
   /**
+   * 根据当前登录用户获取学生信息
+   * @return R
+   */
+  @GetMapping("/getStudent/{id}")
+  public R getStudentById(@PathVariable("id") Integer id){
+    return new R<>(samsStudentArchivesService.getStudent(id));
+  }
+
+  /*
    * 新增学生档案管理表
    * @param samsStudentArchive 学生档案管理表
    * @return R
    */
   @SysLog("新增学生档案管理表")
-  @PostMapping
+  @PostMapping("/create")
   public R save(@RequestBody SamsStudentArchive samsStudentArchive){
-    return new R<>(samsStudentArchivesManagementService.save(samsStudentArchive));
+    return samsStudentArchivesService.create(samsStudentArchive);
   }
 
   /**
@@ -64,9 +73,9 @@ public class SamsStudentArchiveController {
    * @return R
    */
   @SysLog("修改学生档案管理表")
-  @PutMapping
+  @PostMapping("/update")
   public R updateById(@RequestBody SamsStudentArchive samsStudentArchive){
-    return new R<>(samsStudentArchivesManagementService.updateById(samsStudentArchive));
+    return new R<>(samsStudentArchivesService.updateById(samsStudentArchive));
   }
 
   /**
@@ -75,9 +84,9 @@ public class SamsStudentArchiveController {
    * @return R
    */
   @SysLog("删除学生档案管理表")
-  @DeleteMapping("/{id}")
+  @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
-    return new R<>(samsStudentArchivesManagementService.removeById(id));
+    return new R<>(samsStudentArchivesService.removeById(id));
   }
 
 }

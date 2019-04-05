@@ -21,7 +21,7 @@ import com.pig4cloud.pig.common.core.util.R;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/samsclassinformation")
+@RequestMapping("/classinfo")
 public class SamsClassInformationController {
 
   private final SamsClassInformationService samsClassInformationService;
@@ -54,9 +54,9 @@ public class SamsClassInformationController {
    * @return R
    */
   @SysLog("新增班级信息表")
-  @PostMapping
+  @PostMapping("/create")
   public R save(@RequestBody SamsClassInformation samsClassInformation){
-    return new R<>(samsClassInformationService.save(samsClassInformation));
+    return samsClassInformationService.create(samsClassInformation);
   }
 
   /**
@@ -65,7 +65,7 @@ public class SamsClassInformationController {
    * @return R
    */
   @SysLog("修改班级信息表")
-  @PutMapping
+  @PostMapping("/update")
   public R updateById(@RequestBody SamsClassInformation samsClassInformation){
     return new R<>(samsClassInformationService.updateById(samsClassInformation));
   }
@@ -76,7 +76,7 @@ public class SamsClassInformationController {
    * @return R
    */
   @SysLog("删除班级信息表")
-  @DeleteMapping("/{id}")
+  @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
     return new R<>(samsClassInformationService.removeById(id));
   }

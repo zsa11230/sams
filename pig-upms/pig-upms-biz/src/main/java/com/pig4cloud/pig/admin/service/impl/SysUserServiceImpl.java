@@ -42,7 +42,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +64,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	private final SysDeptService sysDeptService;
 	private final SysUserRoleService sysUserRoleService;
 	private final SysDeptRelationService sysDeptRelationService;
+	private final SamsStudentArchiveService samsStudentArchiveService;
 
 	/**
 	 * 保存用户信息
@@ -77,6 +80,30 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		sysUser.setDelFlag(CommonConstants.STATUS_NORMAL);
 		sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
 		baseMapper.insert(sysUser);
+		String realName=userDto.getRealName();
+		if (realName!=null){
+			SamsStudentArchive studentArchive=new SamsStudentArchive();
+			studentArchive.setUserId(sysUser.getUserId());
+			String str1="341";
+			Calendar date = Calendar.getInstance();
+			String year=String.valueOf(date.get(Calendar.YEAR));
+			String yearDate=year.substring(2);
+			String maxCode = str1+yearDate+sysUser.getUserId();
+			String numStr = maxCode.substring(5);
+			DecimalFormat countFormat = new DecimalFormat("0000");
+			String studentId=str1+yearDate+countFormat.format(Integer.parseInt(numStr)+1);
+			studentArchive.setStudentId(studentId);
+			studentArchive.setRealName(userDto.getRealName());
+			studentArchive.setNation(userDto.getNation());
+			studentArchive.setHonor(userDto.getHonor());
+			studentArchive.setHeadImage(userDto.getHeadImage());
+			studentArchive.setContactAddress(userDto.getContactAddress());
+			studentArchive.setBirthDate(userDto.getBirthDate());
+			studentArchive.setEnrollment(userDto.getEnrollment());
+			studentArchive.setSex(userDto.getSex());
+			studentArchive.setPersonalInformation(userDto.getPersonalInformation());
+			samsStudentArchiveService.save(studentArchive);
+		}
 		List<SysUserRole> userRoleList = userDto.getRole()
 			.stream().map(roleId -> {
 				SysUserRole userRole = new SysUserRole();

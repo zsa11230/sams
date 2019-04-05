@@ -20,7 +20,7 @@ import com.pig4cloud.pig.common.core.util.R;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/samsscore")
+@RequestMapping("/score")
 public class SamsScoreController {
 
   private final SamsScoreService samsScoreService;

@@ -40,4 +40,40 @@ public class UserDTO extends SysUser {
 	 * 新密码
 	 */
 	private String newpassword1;
+	/**
+	 * 学生姓名
+	 */
+	private String realName;
+	/**
+	 * 民族
+	 */
+	private String nation;
+	/**
+	 * 性别
+	 */
+	private String sex;
+	/**
+	 * 出生年月
+	 */
+	private String birthDate;
+	/**
+	 * 个人信息
+	 */
+	private String personalInformation;
+	/**
+	 * 个人荣誉
+	 */
+	private String honor;
+	/**
+	 * 联系地址
+	 */
+	private String contactAddress;
+	/**
+	 * 入学日期
+	 */
+	private String enrollment;
+	/**
+	 * 个人头像
+	 */
+	private String headImage;
 }

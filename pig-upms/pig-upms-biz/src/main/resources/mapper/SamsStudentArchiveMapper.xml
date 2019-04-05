@@ -8,7 +8,7 @@
 
 <mapper namespace="com.pig4cloud.pig.admin.mapper.SamsStudentArchiveMapper">
 
-	<resultMap id="samsStudentArchivesManagementMap" type="com.pig4cloud.pig.admin.api.entity.SamsStudentArchive">
+	<resultMap id="samsStudentArchivesMap" type="com.pig4cloud.pig.admin.api.entity.SamsStudentArchive">
 		<id property="id" column="id"/>
 		<result property="realName" column="real_name"/>
 		<result property="nation" column="nation"/>
@@ -19,5 +19,26 @@
 		<result property="honor" column="honor"/>
 		<result property="contactAddress" column="contact_address"/>
 		<result property="enrollment" column="enrollment"/>
+		<result property="headImage" column="head_image"/>
+		<result property="userId" column="user_id"/>
+		<result property="classId" column="class_id"/>
 	</resultMap>
+
+	<select id="getStudentById" resultMap="samsStudentArchivesMap">
+		SELECT
+		u.*
+		FROM
+		sams_student_archives u
+		WHERE
+		u.user_id = #{id}
+	</select>
+
+	<select id="getMyClassById" resultType="int">
+		SELECT
+		u.class_id
+		FROM
+		class_relation u
+		WHERE
+		u.user_id = #{id}
+	</select>
 </mapper>
