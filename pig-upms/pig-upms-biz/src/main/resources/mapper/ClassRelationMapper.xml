@@ -8,10 +8,36 @@
 
 <mapper namespace="com.pig4cloud.pig.admin.mapper.ClassRelationMapper">
 
-  <resultMap id="classRelationMap" type="com.pig4cloud.pig.admin.api.entity.ClassRelation">
-                  <id property="id" column="id"/>
-                        <result property="classId" column="class_id"/>
-                        <result property="studentId" column="student_id"/>
-            </resultMap>
+	<resultMap id="classRelationMap" type="com.pig4cloud.pig.admin.api.entity.ClassRelation">
+		<id property="id" column="id"/>
+		<result property="classId" column="class_id"/>
+		<result property="studentId" column="student_id"/>
+	</resultMap>
 
+	<resultMap id="samsStudentArchivesMap" type="com.pig4cloud.pig.admin.api.entity.SamsStudentArchive">
+		<id property="id" column="id"/>
+		<result property="realName" column="real_name"/>
+		<result property="nation" column="nation"/>
+		<result property="studentId" column="student_id"/>
+		<result property="sex" column="sex"/>
+		<result property="birthDate" column="birth_date"/>
+		<result property="personalInformation" column="personal_information"/>
+		<result property="honor" column="honor"/>
+		<result property="contactAddress" column="contact_address"/>
+		<result property="enrollment" column="enrollment"/>
+		<result property="headImage" column="head_image"/>
+		<result property="userId" column="user_id"/>
+		<result property="classId" column="class_id"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<select id="getStudentById" resultMap="samsStudentArchivesMap">
+		SELECT
+		u.*
+		FROM
+		 class_relation h
+		LEFT JOIN sams_student_archives u ON u.user_id = h.student_id
+		WHERE
+		h.student_id = #{id}
+	</select>
 </mapper>

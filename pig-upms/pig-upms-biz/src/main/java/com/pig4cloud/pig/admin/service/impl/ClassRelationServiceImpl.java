@@ -23,8 +23,12 @@ import java.util.Calendar;
  * @author LuckyDu
  * @date 2019-04-04 13:51:24
  */
+@Slf4j
 @Service
+@AllArgsConstructor
 public class ClassRelationServiceImpl extends ServiceImpl<ClassRelationMapper, ClassRelation> implements ClassRelationService {
+
+	private final SamsStudentArchiveService samsStudentArchiveService;
 
 	@Override
 	public R<Boolean> create(ClassRelation classRelation) {
@@ -33,6 +37,9 @@ public class ClassRelationServiceImpl extends ServiceImpl<ClassRelationMapper, C
 			for (Integer id:ids){
 				classRelation.setStudentId(id);
 				baseMapper.insert(classRelation);
+				SamsStudentArchive samsStudentArchive=baseMapper.getStudentById(id);
+				samsStudentArchive.setClassId(classRelation.getClassId());
+				samsStudentArchiveService.updateById(samsStudentArchive);
 			}
 		}
 		return new R<>(Boolean.TRUE);

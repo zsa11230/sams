@@ -3,9 +3,11 @@
  */
 package com.pig4cloud.pig.admin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pig4cloud.pig.admin.api.entity.SamsStudentArchive;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.service.SamsStudentArchiveService;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,17 @@ public class SamsStudentArchiveController {
   @GetMapping("/page")
   public R getSamsStudentArchivesManagementPage(Page page, SamsStudentArchive samsStudentArchive) {
     return  new R<>(samsStudentArchivesService.page(page,Wrappers.query(samsStudentArchive)));
+  }
+
+ /**
+   * 获取所有学生列表
+   * @param page 分页对象
+   * @param samsStudentArchive 学生档案管理表
+   * @return
+   */
+  @GetMapping("/student/page")
+  public R<IPage<StudentVO>> getStudentPage(Page page, SamsStudentArchive samsStudentArchive) {
+    return  new R<IPage<StudentVO>>(samsStudentArchivesService.getStudentPage(page,samsStudentArchive));
   }
 
 

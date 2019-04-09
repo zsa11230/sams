@@ -11,7 +11,6 @@
 	<resultMap id="samsClassInformationMap" type="com.pig4cloud.pig.admin.api.entity.SamsClassInformation">
 		<id property="id" column="id"/>
 		<result property="grade" column="grade"/>
-		<result property="classId" column="class_id"/>
 		<result property="className" column="class_name"/>
 		<result property="yearSystem" column="year_system"/>
 		<result property="headmaster" column="headmaster"/>
@@ -19,5 +18,35 @@
 		<result property="profession" column="profession"/>
 		<result property="semester" column="semester"/>
 		<result property="title" column="title"/>
+		<result property="delFlag" column="del_flag"/>
 	</resultMap>
+	<select id="getMyClassPage" resultMap="samsClassInformationMap">
+		SELECT
+		u.id,
+		u.class_name,
+		u.headmaster,
+		u.profession,
+		u.title
+		FROM
+		sams_class_information u
+		LEFT JOIN class_relation h ON h.class_id = u.id
+		WHERE
+			h.student_id=#{id}
+			and u.del_flag = 0
+	</select>
+
+	<select id="getClassList" resultMap="samsClassInformationMap">
+		SELECT
+			u.id,
+			u.class_name,
+			u.headmaster,
+			u.title
+		FROM
+			sams_class_information u
+		WHERE
+			u.del_flag = 0
+		ORDER BY
+			create_time DESC
+		LIMIT 5
+	</select>
 </mapper>

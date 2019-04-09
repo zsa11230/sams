@@ -4,6 +4,7 @@
 package com.pig4cloud.pig.admin.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -32,12 +33,8 @@ private static final long serialVersionUID = 1L;
    * 年级
    */
     private String grade;
-	/**
-	 * 班级id
-	 */
-	private Integer classId;
     /**
-   * 班级
+   * 班级名称
    */
     private String className;
     /**
@@ -64,5 +61,10 @@ private static final long serialVersionUID = 1L;
    * 所属学院
    */
     private String title;
+	/**
+	 * 删除标记
+	 */
+	@TableLogic
+	private Integer delFlag;
   
 }

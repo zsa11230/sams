@@ -3,8 +3,11 @@
  */
 package com.pig4cloud.pig.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pig4cloud.pig.admin.api.entity.SamsStudentArchive;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.common.core.util.R;
 
 /**
@@ -27,4 +30,12 @@ public interface SamsStudentArchiveService extends IService<SamsStudentArchive> 
 	 * @return
 	 */
 	SamsStudentArchive getStudent(Integer id);
+
+	/**
+	 * 获取所有学生分页
+	 * @param page
+	 * @param samsStudentArchive
+	 * @return
+	 */
+	IPage<StudentVO> getStudentPage(Page page, SamsStudentArchive samsStudentArchive);
 }

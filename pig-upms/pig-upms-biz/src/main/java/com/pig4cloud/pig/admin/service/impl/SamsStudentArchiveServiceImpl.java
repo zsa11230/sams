@@ -3,8 +3,11 @@
  */
 package com.pig4cloud.pig.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.entity.SamsStudentArchive;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.mapper.SamsStudentArchiveMapper;
 import com.pig4cloud.pig.admin.service.SamsStudentArchiveService;
 import com.pig4cloud.pig.admin.service.SysUserService;
@@ -42,11 +45,16 @@ public class SamsStudentArchiveServiceImpl extends ServiceImpl<SamsStudentArchiv
 			studentArchive.setClassId(classId);
 			return studentArchive;
 		}else{
-			SamsStudentArchive student=baseMapper.getStudentById(SecurityUtils.getUser().getId());
+			SamsStudentArchive student=baseMapper.getStudentById(id);
 			Integer classId=baseMapper.getMyClassById(id);
 			student.setClassId(classId);
 			return student;
 		}
+	}
+
+	@Override
+	public IPage<StudentVO> getStudentPage(Page page, SamsStudentArchive samsStudentArchive) {
+		return baseMapper.getStudentPage(page,samsStudentArchive);
 	}
 
 }
