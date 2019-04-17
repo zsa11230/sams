@@ -3,15 +3,16 @@
  */
 package com.pig4cloud.pig.admin.mapper;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pig4cloud.pig.admin.api.entity.SamsCourse;
+import com.pig4cloud.pig.admin.api.entity.SamsCourseMajor;
 
 /**
- * 课程管理表
+ * 专业课程
  *
  * @author LuckyDu
- * @date 2019-03-27 10:14:58
+ * @date 2019-04-14 19:00:11
  */
-public interface SamsCourseMapper extends BaseMapper<SamsCourse> {
+public interface SamsCourseMajorMapper extends BaseMapper<SamsCourseMajor> {
 
 }

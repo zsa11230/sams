@@ -53,7 +53,7 @@ public class SamsScoreController {
    * @return R
    */
   @SysLog("新增学生成绩管理表")
-  @PostMapping
+  @PostMapping("/create")
   public R save(@RequestBody SamsScore samsScore){
     return new R<>(samsScoreService.save(samsScore));
   }
@@ -64,7 +64,7 @@ public class SamsScoreController {
    * @return R
    */
   @SysLog("修改学生成绩管理表")
-  @PutMapping
+  @PostMapping("/update")
   public R updateById(@RequestBody SamsScore samsScore){
     return new R<>(samsScoreService.updateById(samsScore));
   }
@@ -75,7 +75,7 @@ public class SamsScoreController {
    * @return R
    */
   @SysLog("删除学生成绩管理表")
-  @DeleteMapping("/{id}")
+  @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
     return new R<>(samsScoreService.removeById(id));
   }

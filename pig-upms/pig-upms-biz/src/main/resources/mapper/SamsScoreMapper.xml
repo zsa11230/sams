@@ -11,7 +11,8 @@
 	<resultMap id="samsScoreMap" type="com.pig4cloud.pig.admin.api.entity.SamsScore">
 		<id property="id" column="id"/>
 		<result property="courseId" column="course_id"/>
-		<result property="studentId" column="student_id"/>
+		<result property="courseName" column="course_name"/>
+		<result property="userId" column="user_id"/>
 		<result property="examGrade" column="exam_grade"/>
 		<result property="partGrade" column="part_grade"/>
 		<result property="grade" column="grade"/>

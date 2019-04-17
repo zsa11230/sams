@@ -53,7 +53,7 @@ public class SamsStudentTranscriptController {
    * @return R
    */
   @SysLog("新增学生成绩表")
-  @PostMapping
+  @PostMapping("/create")
   public R save(@RequestBody SamsStudentTranscript samsStudentTranscript){
     return new R<>(samsStudentTranscriptService.save(samsStudentTranscript));
   }
@@ -64,7 +64,7 @@ public class SamsStudentTranscriptController {
    * @return R
    */
   @SysLog("修改学生成绩表")
-  @PutMapping
+  @PostMapping("/update")
   public R updateById(@RequestBody SamsStudentTranscript samsStudentTranscript){
     return new R<>(samsStudentTranscriptService.updateById(samsStudentTranscript));
   }
@@ -75,7 +75,7 @@ public class SamsStudentTranscriptController {
    * @return R
    */
   @SysLog("删除学生成绩表")
-  @DeleteMapping("/{id}")
+  @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
     return new R<>(samsStudentTranscriptService.removeById(id));
   }

@@ -9,48 +9,34 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-
 /**
- * 学生成绩管理表
+ * 学生课程表
  *
  * @author LuckyDu
- * @date 2019-03-27 10:15:02
+ * @date 2019-04-14 19:00:16
  */
 @Data
-@TableName("sams_score")
+@TableName("class_schedule")
 @EqualsAndHashCode(callSuper = true)
-public class SamsScore extends Model<SamsScore> {
+public class ClassSchedule extends Model<ClassSchedule> {
 private static final long serialVersionUID = 1L;
 
     /**
-   * id
+   * 课程表id
    */
     @TableId
     private Integer id;
     /**
-   * 所属课程
+   * 课程名表名称
+   */
+    private String scheduleName;
+    /**
+   * 关联班级id
+   */
+    private Integer classId;
+    /**
+   * 课程id
    */
     private Integer courseId;
-    /**
-   * 所属课程
-   */
-    private String courseName;
-    /**
-   * 所属学生
-   */
-    private Integer userId;
-    /**
-   * 考试成绩
-   */
-    private String examGrade;
-    /**
-   * 平时成绩
-   */
-    private String partGrade;
-    /**
-   * 期评
-   */
-    private String grade;
   
 }

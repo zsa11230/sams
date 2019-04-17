@@ -3,15 +3,16 @@
  */
 package com.pig4cloud.pig.admin.service;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pig4cloud.pig.admin.api.entity.SamsCourse;
+import com.pig4cloud.pig.admin.api.entity.SamsCourseMajor;
 
 /**
- * 课程管理表
+ * 专业课程
  *
  * @author LuckyDu
- * @date 2019-03-27 10:14:58
+ * @date 2019-04-14 19:00:11
  */
-public interface SamsCourseService extends IService<SamsCourse> {
+public interface SamsCourseMajorService extends IService<SamsCourseMajor> {
 
 }

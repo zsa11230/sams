@@ -45,7 +45,7 @@
 		FROM
 		class_relation u
 		WHERE
-		u.user_id = #{id}
+		u.student_id = #{id}
 	</select>
 
 	<select id="getStudentPage" resultMap="studentVO">

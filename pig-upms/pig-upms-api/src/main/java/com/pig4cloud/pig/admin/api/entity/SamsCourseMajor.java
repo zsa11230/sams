@@ -8,23 +8,20 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
- * 课程管理表
+ * 专业课程
  *
  * @author LuckyDu
- * @date 2019-03-27 10:14:58
+ * @date 2019-04-14 19:00:11
  */
 @Data
-@TableName("sams_course")
+@TableName("sams_course_major")
 @EqualsAndHashCode(callSuper = true)
-public class SamsCourse extends Model<SamsCourse> {
+public class SamsCourseMajor extends Model<SamsCourseMajor> {
 private static final long serialVersionUID = 1L;
 
     /**
-   * id
+   * 专业课程id
    */
     @TableId
     private Integer id;
@@ -37,20 +34,24 @@ private static final long serialVersionUID = 1L;
    */
     private String courseTeacher;
     /**
-   * 教学时长
-   */
-    private Integer duration;
-    /**
-   * 课程人数
-   */
-    private Integer number;
-    /**
    * 课程类型
    */
     private String courseType;
     /**
    * 学分
    */
-    private Integer credits;
+    private String credits;
+    /**
+   * 课程所在星期
+   */
+    private String week;
+    /**
+   * 课程所在节数
+   */
+    private String time;
+    /**
+   * 关联班级id
+   */
+    private Integer classId;
   
 }

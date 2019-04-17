@@ -6,15 +6,17 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pig4cloud.pig.admin.mapper.SamsCourseMapper">
+<mapper namespace="com.pig4cloud.pig.admin.mapper.SamsCourseMajorMapper">
 
-	<resultMap id="samsCourseMap" type="com.pig4cloud.pig.admin.api.entity.SamsCourse">
+	<resultMap id="samsCourseMajorMap" type="com.pig4cloud.pig.admin.api.entity.SamsCourseMajor">
 		<id property="id" column="id"/>
 		<result property="courseName" column="course_name"/>
 		<result property="courseTeacher" column="course_teacher"/>
-		<result property="duration" column="duration"/>
-		<result property="number" column="number"/>
 		<result property="courseType" column="course_type"/>
 		<result property="credits" column="credits"/>
+		<result property="week" column="week"/>
+		<result property="time" column="time"/>
+		<result property="classId" column="class_id"/>
 	</resultMap>
+
 </mapper>
