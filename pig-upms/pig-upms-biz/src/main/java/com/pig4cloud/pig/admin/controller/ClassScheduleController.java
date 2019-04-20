@@ -4,12 +4,19 @@
 package com.pig4cloud.pig.admin.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pig4cloud.pig.admin.api.dto.ClassScheduleDTO;
 import com.pig4cloud.pig.admin.api.entity.ClassSchedule;
+import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
+import com.pig4cloud.pig.admin.api.vo.ClassScheduleVO;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.service.ClassScheduleService;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import com.pig4cloud.pig.common.core.util.R;
+
+import java.util.List;
 
 /**
  * 学生课程表
@@ -35,36 +42,46 @@ public class ClassScheduleController {
     return  new R<>(service.page(page,Wrappers.query(classSchedule)));
   }
 
-  /**
+
+	/**
+	 * 查询所有专业课程list
+	 * @return R
+	 */
+	@PostMapping("/list/{classId}")
+	public R<List<StudentVO>> getList(@PathVariable("classId") Integer classId){
+		return service.getClassList(classId);
+	}
+
+
+	/**
    * 通过id查询学生课程表
    * @param id
    * @return R
    */
   @GetMapping("/{id}")
-  public R getById(@PathVariable("id") Integer id){
-    return new R<>(service.getById(id));
+  public R<List<ClassScheduleVO>> getById(@PathVariable("id") Integer id){
+    return service.getClassById(id);
   }
+
 
   /**
    * 新增学生课程表
-   * @param classSchedule 学生课程表
+   * @param id 学生课程表
    * @return R
    */
   @SysLog("新增学生课程表")
-  @PostMapping("/create")
-  public R save(@RequestBody ClassSchedule classSchedule){
-    return new R<>(service.save(classSchedule));
-  }
+  @PostMapping("/create/{id}")
+  public R<List<ClassScheduleVO>> save(@PathVariable Integer id){ return service.createClassSchedule(id); }
 
   /**
    * 修改学生课程表
-   * @param classSchedule 学生课程表
+   * @param classScheduleDTO 学生课程表
    * @return R
    */
   @SysLog("修改学生课程表")
   @PostMapping("/update")
-  public R updateById(@RequestBody ClassSchedule classSchedule){
-    return new R<>(service.updateById(classSchedule));
+  public R<List<ClassScheduleVO>> updateById(@RequestBody ClassScheduleDTO classScheduleDTO){
+    return service.updateByClassSchedule(classScheduleDTO);
   }
 
   /**

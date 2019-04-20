@@ -42,7 +42,7 @@ private static final long serialVersionUID = 1L;
     /**
    * 课程人数
    */
-    private String number;
+    private Integer number;
     /**
    * 课程类型
    */
@@ -51,14 +51,10 @@ private static final long serialVersionUID = 1L;
    * 学分
    */
     private String credits;
-	/**
-	 * 课程所在星期
-	 */
-    private String week;
     /**
-	 * 课程所在节数
+	 * 上课时间
 	 */
-    private String time;
+    private Integer subjectTime;
 	/**
 	 * 删除标记
 	 */

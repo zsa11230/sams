@@ -19,6 +19,12 @@
 		<result property="semester" column="semester"/>
 		<result property="title" column="title"/>
 		<result property="delFlag" column="del_flag"/>
+		<result property="schedule" column="schedule"/>
+	</resultMap>
+
+	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
 	</resultMap>
 	<select id="getMyClassPage" resultMap="samsClassInformationMap">
 		SELECT
@@ -45,8 +51,28 @@
 			sams_class_information u
 		WHERE
 			u.del_flag = 0
-		ORDER BY
-			create_time DESC
-		LIMIT 5
 	</select>
+
+	<select id="getPageList" resultMap="samsClassInformationMap">
+		SELECT
+		m.*,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		class_schedule u
+		WHERE
+		u.class_id =m.id
+		) AS `schedule`
+		FROM
+		sams_class_information m
+		<where>
+			m.del_flag = 0
+			<if test="query.className != null and query.className != ''">
+				AND m.class_name= #{query.className}
+			</if>
+		</where>
+	</select>
+
+
 </mapper>

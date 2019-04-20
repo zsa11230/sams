@@ -3,12 +3,15 @@
  */
 package com.pig4cloud.pig.admin.api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Transient;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -61,6 +64,12 @@ private static final long serialVersionUID = 1L;
    * 所属学院
    */
     private String title;
+    /**
+	 * 是否存在课表
+	 */
+	@TableField(exist = false)
+	@Transient
+	private Integer schedule;
 	/**
 	 * 删除标记
 	 */

@@ -3,14 +3,20 @@
  */
 package com.pig4cloud.pig.admin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pig4cloud.pig.admin.api.entity.SamsCourseElective;
+import com.pig4cloud.pig.admin.api.entity.SamsCourseMajor;
 import com.pig4cloud.pig.admin.api.entity.SamsScore;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.service.SamsScoreService;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.pig4cloud.pig.common.core.util.R;
+
+import java.util.List;
 
 /**
  * 学生成绩管理表
@@ -32,8 +38,47 @@ public class SamsScoreController {
    * @return
    */
   @GetMapping("/page")
-  public R getSamsScorePage(Page page, SamsScore samsScore) {
-    return  new R<>(samsScoreService.page(page,Wrappers.query(samsScore)));
+  public R<IPage<SamsScore>> getSamsScorePage(Page page, SamsScore samsScore) {
+    return  new R<>(samsScoreService.getPageList(page,samsScore));
+  }
+
+  /**
+   * 分页查询
+   * @param page 分页对象
+   * @param samsCourseMajor 学生成绩管理表
+   * @return
+   */
+  @GetMapping("/major/page")
+  public R<IPage<SamsCourseMajor>> getSamsCourseMajorPage(Page page, SamsCourseMajor samsCourseMajor) {
+    return new R<>(samsScoreService.getMajorPageList(page,samsCourseMajor));
+  }
+	/**
+	 * 获取课程学生
+	 * @param courseId 学生成绩管理表
+	 * @return
+	 */
+	@GetMapping("/major/student")
+	public R<IPage<SamsScore>> getMajorStudent(Page page, SamsScore samsScore,Integer courseId) {
+		return new R<>(samsScoreService.getMajorStudent(page,samsScore,courseId));
+	}
+	/**
+	 * 获取课程学生
+	 * @param courseId 学生成绩管理表
+	 * @return
+	 */
+	@GetMapping("/elective/student")
+	public R<IPage<SamsScore>> getElectiveStudent(Page page, SamsScore samsScore,Integer courseId) {
+		return new R<>(samsScoreService.getElectiveStudent(page,samsScore,courseId));
+	}
+  /**
+   * 分页查询
+   * @param page 分页对象
+   * @param courseElective 学生成绩管理表
+   * @return
+   */
+  @GetMapping("/elective/page")
+  public R<IPage<SamsCourseElective>> getSamsCourseElectivePage(Page page, SamsCourseElective courseElective) {
+    return  new R<>(samsScoreService.getElectivePageList(page,courseElective));
   }
 
 
@@ -66,7 +111,7 @@ public class SamsScoreController {
   @SysLog("修改学生成绩管理表")
   @PostMapping("/update")
   public R updateById(@RequestBody SamsScore samsScore){
-    return new R<>(samsScoreService.updateById(samsScore));
+    return samsScoreService.updateScore(samsScore);
   }
 
   /**

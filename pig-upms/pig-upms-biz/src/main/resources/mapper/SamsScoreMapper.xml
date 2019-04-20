@@ -17,4 +17,50 @@
 		<result property="partGrade" column="part_grade"/>
 		<result property="grade" column="grade"/>
 	</resultMap>
+	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+
+	<select id="getPageList" resultMap="samsScoreMap">
+		SELECT
+		m.*,
+		h.real_name as `realName`
+		FROM
+		sams_score m
+		LEFT JOIN sams_student_archives h ON h.user_id = m.user_id
+		<where>
+			m.user_id=#{userId}
+			<if test="query.courseName != null and query.courseName != ''">
+				AND m.course_name= #{query.courseName}
+			</if>
+		</where>
+	</select>
+
+	<select id="getStudentByMajor" resultMap="samsScoreMap">
+	SELECT
+	u.user_id as `id`,
+	u.real_name as `name`
+		FROM
+		sams_student_archives u
+		left join sams_course_major m on m.class_id=u.class_id
+		<where>
+			m.id = #{courseId}
+		</where>
+	</select>
+
+	<select id="getStudentByElective" resultMap="samsScoreMap">
+	SELECT
+	s.*,
+	e.real_name as `realName`,
+	e.user_id as studentId
+		FROM
+		student_selection u
+		left join sams_student_archives e on e.user_id=u.user_id
+		left join sams_score s on s.user_id=e.user_id
+		<where>
+			u.course_id = #{courseId}
+		</where>
+	</select>
+
 </mapper>

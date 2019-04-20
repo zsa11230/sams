@@ -16,8 +16,7 @@
 		<result property="number" column="number"/>
 		<result property="courseType" column="course_type"/>
 		<result property="credits" column="credits"/>
-		<result property="week" column="week"/>
-		<result property="time" column="time"/>
+		<result property="subjectTime" column="subject_time"/>
 		<result property="delFlag" column="del_flag"/>
 	</resultMap>
 
@@ -50,15 +49,30 @@
 		 u.user_id = #{id}
 	</select>
 
-	<select id="getCourseCount" resultType="int">
+	<select id="getCourseBySubjectTime" resultMap="samsCourseElectiveMap">
 		SELECT
-		COUNT(*)
+			m.*
 		FROM
-		sams_course_elective u
+			sams_course_elective AS m
 		WHERE
-		u.del_flag = 0
-		AND u.course_id = #{courseId}
+			m.subject_time = #{subjectTime}
+			AND m.del_flag=0
 	</select>
 
+	<select id="getMyElectiveClass" resultMap="samsCourseElectiveMap">
+		SELECT
+		h.*
+		FROM
+		sams_student_archives m
+		LEFT JOIN sams_course_elective h ON h.course_teacher = m.real_name
+		<where>
+			m.user_id=#{userId}
+			and
+			m.del_flag = 0
+			<if test="query.courseName != null and query.courseName != ''">
+				AND m.course_name= #{query.courseName}
+			</if>
+		</where>
+	</select>
 
 </mapper>

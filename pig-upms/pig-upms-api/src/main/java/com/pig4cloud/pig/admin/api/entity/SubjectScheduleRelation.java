@@ -8,42 +8,35 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 /**
- * 专业课程
+ * 学生课程表表
  *
  * @author LuckyDu
- * @date 2019-04-14 19:00:11
+ * @date 2019-04-14 19:00:16
  */
 @Data
-@TableName("sams_course_major")
+@TableName("subject_schedule_relation")
 @EqualsAndHashCode(callSuper = true)
-public class SamsCourseMajor extends Model<SamsCourseMajor> {
+public class SubjectScheduleRelation extends Model<SubjectScheduleRelation> {
 private static final long serialVersionUID = 1L;
 
     /**
-   * 专业课程id
+   * 主键ID
    */
     @TableId
     private Integer id;
     /**
-   * 课程名称
+   * 课程表ID
    */
-    private String courseName;
+    private Integer scheduleId;
     /**
-   * 课程老师
+   * 课程ID
    */
-    private String courseTeacher;
-    /**
-   * 课程类型
-   */
-    private String courseType;
-    /**
-   * 学分
-   */
-    private String credits;
-    /**
-   * 关联班级id
-   */
-    private Integer classId;
-  
+    private Integer subjectId;
+	/**
+	 * 上课时间
+	 */
+	private Integer subjectTime;
+
 }

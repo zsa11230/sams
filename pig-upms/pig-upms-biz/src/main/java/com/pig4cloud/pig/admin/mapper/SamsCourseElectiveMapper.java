@@ -30,9 +30,7 @@ public interface SamsCourseElectiveMapper extends BaseMapper<SamsCourseElective>
 	Integer[] getStudentCourseCount(Integer id);
 
 	/**
-	 * 获取课程当前的学生总数
-	 * @param id
-	 * @return
+	 * 获取我的教学课程分页
 	 */
-	Integer getCourseCount(Integer id);
+	IPage<SamsCourseElective> getMyElectiveClass(Page page, @Param("query") SamsCourseElective samsCoursEelective, @Param("userId") Integer userId);
 }

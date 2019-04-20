@@ -6,6 +6,7 @@ package com.pig4cloud.pig.admin.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,4 +30,9 @@ public interface SamsClassInformationMapper extends BaseMapper<SamsClassInformat
 	 */
 	List<SamsClassInformation> getClassList();
 
+	/**
+	 * 获取分页
+	 * @return
+	 */
+	Page<SamsClassInformation> getPageList(Page page, @Param("query") SamsClassInformation samsClassInformation);
 }

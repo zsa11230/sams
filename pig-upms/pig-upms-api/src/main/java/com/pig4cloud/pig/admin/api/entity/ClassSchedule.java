@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 学生课程表
+ * 学生课程表表
  *
  * @author LuckyDu
  * @date 2019-04-14 19:00:16
@@ -34,9 +34,5 @@ private static final long serialVersionUID = 1L;
    * 关联班级id
    */
     private Integer classId;
-    /**
-   * 课程id
-   */
-    private Integer courseId;
   
 }

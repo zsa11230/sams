@@ -36,8 +36,8 @@ public class SamsClassInformationController {
    * @return
    */
   @GetMapping("/page")
-  public R getSamsClassInformationPage(Page page, SamsClassInformation samsClassInformation) {
-    return  new R<>(samsClassInformationService.page(page,Wrappers.query(samsClassInformation)));
+  public R<Page<SamsClassInformation>> getSamsClassInformationPage(Page page, SamsClassInformation samsClassInformation) {
+    return  new R<Page<SamsClassInformation>>(samsClassInformationService.getPage(page,samsClassInformation));
   }
 
 	/**
@@ -52,7 +52,7 @@ public class SamsClassInformationController {
 	}
 
 	/**
-	 * 通过id查询材料表
+	 * 查询所有班级list
 	 * @return R
 	 */
 	@GetMapping("/list")

@@ -16,27 +16,31 @@
 
 package com.pig4cloud.pig.admin.api.vo;
 
-import com.pig4cloud.pig.admin.api.entity.SysRole;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * @author Luckydu
+ * @author lengleng
  * @date 2019/2/1
+ * 角色Dto
  */
 @Data
-public class StudentVO implements Serializable {
+public class ClassScheduleVO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键ID
+	 * 课程表Id
 	 */
 	private Integer id;
 	/**
-	 *
+	 * 课程id
 	 */
-	private String name;
+	private String className;
+	/**
+	 * 上课时间
+	 */
+	private Integer subjectTime;
+
 }

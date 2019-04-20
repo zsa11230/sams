@@ -12,7 +12,36 @@
 		<id property="id" column="id"/>
 		<result property="scheduleName" column="schedule_name"/>
 		<result property="classId" column="class_id"/>
-		<result property="courseId" column="course_id"/>
+	</resultMap>
+	<resultMap id="samsCourseMajorMap" type="com.pig4cloud.pig.admin.api.entity.SamsCourseMajor">
+		<id property="id" column="id"/>
+		<result property="courseName" column="course_name"/>
+		<result property="courseTeacher" column="course_teacher"/>
+		<result property="courseType" column="course_type"/>
+		<result property="credits" column="credits"/>
+		<result property="classId" column="class_id"/>
+	</resultMap>
+	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
 	</resultMap>
 
+	<select id="getIdByClassId" resultType="int">
+		SELECT
+			s.id
+		FROM
+			class_schedule AS s
+		WHERE
+			s.class_id = #{id}
+	</select>
+
+	<select id="getScheduleByMajor" resultMap="studentVO">
+		SELECT
+			m.id,
+			m.course_name as `name`
+		FROM
+			sams_course_major m
+		WHERE
+			m.class_id = #{id}
+	</select>
 </mapper>

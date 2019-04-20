@@ -3,6 +3,7 @@
  */
 package com.pig4cloud.pig.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pig4cloud.pig.admin.api.entity.ClassRelation;
@@ -37,4 +38,12 @@ public interface SamsClassInformationService extends IService<SamsClassInformati
 	 * @return
 	 */
 	R<List<SamsClassInformation>> getClassList();
+
+	/**
+	 * 获取分页
+	 * @param page
+	 * @param samsClassInformation
+	 * @return
+	 */
+	Page<SamsClassInformation> getPage(Page page, SamsClassInformation samsClassInformation);
 }

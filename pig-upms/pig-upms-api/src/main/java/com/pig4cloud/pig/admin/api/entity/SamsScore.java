@@ -3,11 +3,13 @@
  */
 package com.pig4cloud.pig.admin.api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Transient;
 
 import java.math.BigDecimal;
 
@@ -51,6 +53,30 @@ private static final long serialVersionUID = 1L;
     /**
    * 期评
    */
-    private String grade;
-  
+	private String grade;
+	/**
+	 * 学生真实姓名
+	 */
+	@TableField(exist = false)
+	@Transient
+	private String realName;
+	/**
+	 * 学生id
+	 */
+	@TableField(exist = false)
+	@Transient
+	private Integer studentId;
+  /**
+	 * 教学老师
+	 */
+	@TableField(exist = false)
+	@Transient
+	private String teacher;
+	/**
+	 * 学分
+	 */
+	@TableField(exist = false)
+	@Transient
+	private String credits;
+
 }

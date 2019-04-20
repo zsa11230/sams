@@ -14,29 +14,34 @@
  * limitations under the License.
  */
 
-package com.pig4cloud.pig.admin.api.vo;
+package com.pig4cloud.pig.admin.api.dto;
 
 import com.pig4cloud.pig.admin.api.entity.SysRole;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * @author Luckydu
+ * @author lengleng
  * @date 2019/2/1
+ * 角色Dto
  */
 @Data
-public class StudentVO implements Serializable {
+public class ClassScheduleDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键ID
+	 * 班级Id
 	 */
 	private Integer id;
 	/**
-	 *
+	 * 课程id
 	 */
-	private String name;
+	private Integer classId;
+	/**
+	 * 上课时间
+	 */
+	private Integer subjectTime;
 }
