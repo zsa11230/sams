@@ -55,6 +55,10 @@ private static final long serialVersionUID = 1L;
    */
 	private String grade;
 	/**
+	 * 课程类型
+	 */
+	private String courseType;
+	/**
 	 * 学生真实姓名
 	 */
 	@TableField(exist = false)

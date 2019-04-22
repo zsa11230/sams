@@ -40,6 +40,10 @@ public class StudentSelection extends Model<StudentSelection> {
 	 * 学生所属班级
 	 */
 	private Integer classId;
+	/**
+	 * 上课时间
+	 */
+	private Integer subjectTime;
 
 
 }

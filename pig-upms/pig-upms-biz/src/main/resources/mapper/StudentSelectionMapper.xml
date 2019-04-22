@@ -13,6 +13,7 @@
 		<result property="userId" column="user_id"/>
 		<result property="courseId" column="course_id"/>
 		<result property="classId" column="class_id"/>
+		<result property="subjectTime" column="subject_time"/>
 	</resultMap>
 
 	<select id="getCourseCount" resultType="int">

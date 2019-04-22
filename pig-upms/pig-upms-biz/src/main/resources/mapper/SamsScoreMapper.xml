@@ -16,6 +16,7 @@
 		<result property="examGrade" column="exam_grade"/>
 		<result property="partGrade" column="part_grade"/>
 		<result property="grade" column="grade"/>
+		<result property="courseType" column="course_type"/>
 	</resultMap>
 	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
 		<id property="id" column="id"/>
