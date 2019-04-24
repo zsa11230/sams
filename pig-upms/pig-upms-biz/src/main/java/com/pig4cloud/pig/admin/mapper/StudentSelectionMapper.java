@@ -22,4 +22,25 @@ public interface StudentSelectionMapper extends BaseMapper<StudentSelection> {
 	 * @return
 	 */
 	Integer getCourseCount(Integer id);
+
+	/**
+	 * 根据学生userId查询学生的真实姓名
+	 * @param id
+	 * @return
+	 */
+	String getRealNameById(Integer id);
+
+	/**
+	 * 根据用户userId获取用户的班级id
+	 * @param id
+	 * @return
+	 */
+	Integer getClassIdById(Integer id);
+
+	/**
+	 * 根据用户userId查询专业课表
+	 * @param id
+	 * @return
+	 */
+	Integer getScheduleIdByClassId(Integer id);
 }

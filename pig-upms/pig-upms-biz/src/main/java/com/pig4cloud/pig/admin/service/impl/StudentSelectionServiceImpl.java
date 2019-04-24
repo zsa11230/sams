@@ -4,15 +4,19 @@
 package com.pig4cloud.pig.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pig4cloud.pig.admin.api.entity.SamsCourseElective;
-import com.pig4cloud.pig.admin.api.entity.StudentSelection;
+import com.pig4cloud.pig.admin.api.dto.ClassScheduleDTO;
+import com.pig4cloud.pig.admin.api.entity.*;
+import com.pig4cloud.pig.admin.api.vo.ClassScheduleVO;
+import com.pig4cloud.pig.admin.mapper.ClassScheduleMapper;
 import com.pig4cloud.pig.admin.mapper.StudentSelectionMapper;
-import com.pig4cloud.pig.admin.service.SamsCourseElectiveService;
-import com.pig4cloud.pig.admin.service.StudentSelectionService;
+import com.pig4cloud.pig.admin.service.*;
 import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 学生课程关联表
@@ -26,18 +30,109 @@ import org.springframework.stereotype.Service;
 public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMapper, StudentSelection> implements StudentSelectionService {
 
 	private final SamsCourseElectiveService samsCourseElectiveService;
+	private final ClassScheduleService classScheduleService;
+	private final SysUserService sysUserService;
+	private final SubjectScheduleRelationService subjectScheduleRelationService;
+	private final ClassScheduleMapper classScheduleMapper;
+	private final SamsCourseMajorService samsCourseMajorService;
 
 	@Override
-	public R<Boolean> create(StudentSelection studentSelection) {
-		SamsCourseElective courseElective = samsCourseElectiveService.getById(studentSelection.getCourseId());
-		Integer number = courseElective.getNumber();
-		Integer count = baseMapper.getCourseCount(studentSelection.getCourseId());
-		if (count > number) {
-			return new R<>(Boolean.FALSE, "满级人数已满!");
-		} else {
-			baseMapper.insert(studentSelection);
+	public R<Boolean> create() {
+		ClassSchedule schedule = new ClassSchedule();
+		schedule.setScheduleName(baseMapper.getRealNameById(sysUserService.getUserId()) + "的选修课表");
+		schedule.setUserId(sysUserService.getUserId());
+		classScheduleService.save(schedule);
+			Integer scheduleId=baseMapper.getScheduleIdByClassId(sysUserService.getUserId());
+			List<SubjectScheduleRelation> list=subjectScheduleRelationService.getRelationListByscheduleId(scheduleId);
+			for(SubjectScheduleRelation r : list){
+				r.setId(null);
+				r.setScheduleId(scheduleId);
+				r.setType(0);
+				subjectScheduleRelationService.save(r);
+			}
 			return new R<>(Boolean.TRUE, "选课成功！");
+	}
+
+	@Override
+	public R updateCourse(ClassScheduleDTO classScheduleDTO){
+
+//验证能否选课
+		SamsCourseElective courseElective = samsCourseElectiveService.getById(classScheduleDTO.getClassId());
+		Integer number = courseElective.getNumber();
+		Integer count = baseMapper.getCourseCount(classScheduleDTO.getClassId());
+		if (count > number) {
+			return new R<>(Boolean.FALSE, "班级人数已满!");
+		} else {
+			ClassSchedule schedule = new ClassSchedule();
+			schedule.setScheduleName(baseMapper.getRealNameById(sysUserService.getUserId()) + "的选修课表");
+			schedule.setUserId(sysUserService.getUserId());
+			classScheduleService.save(schedule);
+
+
+		ClassSchedule classSchedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
+			List<SubjectScheduleRelation> list = subjectScheduleRelationService.getRelationListByscheduleId(classSchedule.getId());
+			List<ClassScheduleVO> subject = new ArrayList<>();
+			for (Integer i = 0; i < 20; i++) {
+				subject.add(new ClassScheduleVO());
+			}
+
+			SubjectScheduleRelation relation = new SubjectScheduleRelation();
+			relation.setScheduleId(classSchedule.getId());
+			relation.setSubjectId(classScheduleDTO.getClassId());
+			relation.setSubjectTime(classScheduleDTO.getSubjectTime());
+			relation.setType(1);
+			subjectScheduleRelationService.save(relation);
+
+			List<SubjectScheduleRelation> relationList = subjectScheduleRelationService.getRelationListByscheduleId(classSchedule.getId());
+
+			List<ClassScheduleVO> subjectList = new ArrayList<>();
+			for (Integer i = 0; i < 20; i++) {
+				subjectList.add(new ClassScheduleVO());
+			}
+
+			for (SubjectScheduleRelation r : relationList) {
+				Integer subjectId = r.getSubjectId();
+				SamsCourseMajor major = samsCourseMajorService.getById(subjectId);
+				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
+				classScheduleVO.setClassName(major.getCourseName());
+				classScheduleVO.setSubjectTime(r.getSubjectTime());
+				classScheduleVO.setId(classSchedule.getId());
+				classScheduleVO.setIsMajor(0);
+				subjectList.set(r.getSubjectTime(), classScheduleVO);
+			}
+
+			return new R<>(relationList,"选课成功！");
 		}
 
+	}
+
+	@Override
+	public R<List<ClassScheduleVO>> getSchedule(){
+		ClassSchedule schedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
+
+		if(schedule==null){
+			this.create();
+			schedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
+		}
+
+		List<SubjectScheduleRelation> relationList = subjectScheduleRelationService.getRelationListByscheduleId(schedule.getId());
+		List<ClassScheduleVO> subjectList = new ArrayList<>();
+		for(Integer i = 0 ; i<20 ; i++){
+			subjectList.add(new ClassScheduleVO());
+		}
+
+		if (relationList!=null){
+			for(SubjectScheduleRelation r : relationList){
+				Integer subjectId = r.getSubjectId();
+				SamsCourseMajor major = samsCourseMajorService.getById(subjectId);
+				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
+				classScheduleVO.setClassName(major.getCourseName());
+				classScheduleVO.setSubjectTime(r.getSubjectTime());
+				classScheduleVO.setId(schedule.getId());
+				subjectList.set(r.getSubjectTime(),classScheduleVO);
+			}
+		}
+
+		return new R<>(subjectList);
 	}
 }

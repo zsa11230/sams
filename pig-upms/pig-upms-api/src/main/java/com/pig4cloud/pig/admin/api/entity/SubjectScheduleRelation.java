@@ -38,5 +38,9 @@ private static final long serialVersionUID = 1L;
 	 * 上课时间
 	 */
 	private Integer subjectTime;
+	/**
+	 * 0是专业课程，1是选修课程
+	 */
+	private Integer type;
 
 }

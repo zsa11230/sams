@@ -70,17 +70,13 @@ private static final long serialVersionUID = 1L;
 	@TableField(exist = false)
 	@Transient
 	private Integer studentId;
-  /**
-	 * 教学老师
-	 */
-	@TableField(exist = false)
-	@Transient
-	private String teacher;
 	/**
 	 * 学分
 	 */
-	@TableField(exist = false)
-	@Transient
 	private String credits;
+	/**
+	 * 课程老师
+	 */
+	private String courseTeacher;
 
 }

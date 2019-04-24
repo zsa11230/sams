@@ -42,5 +42,9 @@ public class ClassScheduleVO implements Serializable {
 	 * 上课时间
 	 */
 	private Integer subjectTime;
+	/**
+	 * 是否是专业课（0是专业课，1是选修课）
+	 */
+	private Integer isMajor;
 
 }

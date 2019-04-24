@@ -7,12 +7,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.entity.SamsCourseElective;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.mapper.SamsCourseElectiveMapper;
 import com.pig4cloud.pig.admin.service.SamsCourseElectiveService;
 import com.pig4cloud.pig.admin.service.SysUserService;
+import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -40,5 +44,14 @@ public class SamsCourseElectiveServiceImpl extends ServiceImpl<SamsCourseElectiv
 			}else{
 				return null;
 			}
+	}
+
+	@Override
+	public R<List<StudentVO>> getElectiveList(Integer subjectTime) {
+		if (subjectTime!=null){
+			return new R<>(baseMapper.getCourseBySubjectTime(subjectTime));
+		}else {
+			return null;
+		}
 	}
 }

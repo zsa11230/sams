@@ -4,9 +4,13 @@
 package com.pig4cloud.pig.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pig4cloud.pig.admin.api.dto.ClassScheduleDTO;
 import com.pig4cloud.pig.admin.api.entity.ClassRelation;
 import com.pig4cloud.pig.admin.api.entity.StudentSelection;
+import com.pig4cloud.pig.admin.api.vo.ClassScheduleVO;
 import com.pig4cloud.pig.common.core.util.R;
+
+import java.util.List;
 
 /**
  * 学生课程关联表
@@ -17,8 +21,20 @@ import com.pig4cloud.pig.common.core.util.R;
 public interface StudentSelectionService extends IService<StudentSelection> {
 	/**
 	 * 新增
-	 * @param studentSelection
 	 * @return
 	 */
-	R<Boolean> create(StudentSelection studentSelection);
+	R<Boolean> create();
+
+	/**
+	 * 更新学生课程表
+	 * @param courseId
+	 * @return
+	 */
+	R updateCourse(ClassScheduleDTO classScheduleDTO);
+
+	/**
+	 * 获取学生课程表
+	 * @return
+	 */
+	R<List<ClassScheduleVO>> getSchedule();
 }

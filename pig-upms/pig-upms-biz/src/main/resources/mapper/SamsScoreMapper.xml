@@ -17,6 +17,8 @@
 		<result property="partGrade" column="part_grade"/>
 		<result property="grade" column="grade"/>
 		<result property="courseType" column="course_type"/>
+		<result property="credits" column="credits"/>
+		<result property="courseTeacher" column="course_teacher"/>
 	</resultMap>
 	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
 		<id property="id" column="id"/>
@@ -39,12 +41,13 @@
 	</select>
 
 	<select id="getStudentByMajor" resultMap="samsScoreMap">
-	SELECT
-	u.user_id as `id`,
-	u.real_name as `name`
+		SELECT
+		u.class_id,
+		u.user_id AS `userId`,
+		u.real_name AS `name`
 		FROM
 		sams_student_archives u
-		left join sams_course_major m on m.class_id=u.class_id
+		LEFT JOIN sams_course_major m ON m.class_id = u.class_id
 		<where>
 			m.id = #{courseId}
 		</where>

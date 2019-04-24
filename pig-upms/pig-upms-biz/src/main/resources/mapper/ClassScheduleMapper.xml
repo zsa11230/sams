@@ -12,6 +12,7 @@
 		<id property="id" column="id"/>
 		<result property="scheduleName" column="schedule_name"/>
 		<result property="classId" column="class_id"/>
+		<result property="userId" column="user_id"/>
 	</resultMap>
 	<resultMap id="samsCourseMajorMap" type="com.pig4cloud.pig.admin.api.entity.SamsCourseMajor">
 		<id property="id" column="id"/>
@@ -33,6 +34,7 @@
 			class_schedule AS s
 		WHERE
 			s.class_id = #{id}
+			and s.user_id=0
 	</select>
 
 	<select id="getScheduleByMajor" resultMap="studentVO">
@@ -43,5 +45,24 @@
 			sams_course_major m
 		WHERE
 			m.class_id = #{id}
+	</select>
+
+	<select id="getScheduleByMajor" resultMap="studentVO">
+		SELECT
+			m.id,
+			m.course_name as `name`
+		FROM
+			sams_course_major m
+		WHERE
+			m.class_id = #{id}
+	</select>
+
+	<select id="getByUserId" resultMap="classScheduleMap">
+		SELECT
+			m.*
+		FROM
+			class_schedule m
+		WHERE
+			m.user_id = #{id}
 	</select>
 </mapper>

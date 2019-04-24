@@ -7,11 +7,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pig4cloud.pig.admin.api.entity.SamsCourseElective;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.service.SamsCourseElectiveService;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.pig4cloud.pig.common.core.util.R;
+
+import java.util.List;
 
 /**
  * 课程管理表
@@ -90,6 +93,16 @@ public class SamsCourseElectiveController {
   @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
     return new R<>(samsCourseElectiveService.removeById(id));
+  }
+/**
+   * 通过上课时间查询选修课程的列表
+   * @param subjectTime
+   * @return R
+   */
+  @SysLog("根据时间查询选修课程")
+  @PostMapping("/getElectiveList/{subjectTime}")
+  public R<List<StudentVO>> getElectiveList(@PathVariable Integer subjectTime){
+    return samsCourseElectiveService.getElectiveList(subjectTime);
   }
 
 }

@@ -19,7 +19,10 @@
 		<result property="subjectTime" column="subject_time"/>
 		<result property="delFlag" column="del_flag"/>
 	</resultMap>
-
+	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
 	<select id="getStudentCourse" resultMap="samsCourseElectiveMap">
 		SELECT
 		u.*
@@ -49,9 +52,10 @@
 		 u.user_id = #{id}
 	</select>
 
-	<select id="getCourseBySubjectTime" resultMap="samsCourseElectiveMap">
+	<select id="getCourseBySubjectTime" resultMap="studentVO">
 		SELECT
-			m.*
+			m.id,
+			m.course_name AS `name`
 		FROM
 			sams_course_elective AS m
 		WHERE

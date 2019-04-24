@@ -34,5 +34,8 @@ private static final long serialVersionUID = 1L;
    * 关联班级id
    */
     private Integer classId;
-  
+    /**
+   * 关联学生id
+   */
+    private Integer userId;
 }

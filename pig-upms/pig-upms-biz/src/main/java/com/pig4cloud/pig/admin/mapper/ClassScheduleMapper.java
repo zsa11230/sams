@@ -34,5 +34,12 @@ public interface ClassScheduleMapper extends BaseMapper<ClassSchedule> {
 	 */
 	List<StudentVO> getScheduleByMajor(@Param("id") Integer id);
 
+	/**
+	 * 根据学生userId查询课表
+	 * @param id
+	 * @return
+	 */
+	ClassSchedule getByUserId(Integer id);
+
 
 }

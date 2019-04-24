@@ -81,6 +81,7 @@ public class ClassScheduleServiceImpl extends ServiceImpl<ClassScheduleMapper, C
 			classScheduleVO.setClassName(major.getCourseName());
 			classScheduleVO.setSubjectTime(r.getSubjectTime());
 			classScheduleVO.setId(scheduleId);
+			classScheduleVO.setIsMajor(0);
 			subjectList.set(r.getSubjectTime(),classScheduleVO);
 		}
 

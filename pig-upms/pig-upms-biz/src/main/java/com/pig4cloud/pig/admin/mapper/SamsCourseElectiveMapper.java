@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pig4cloud.pig.admin.api.entity.SamsCourseElective;
+import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 课程管理表
@@ -28,6 +31,12 @@ public interface SamsCourseElectiveMapper extends BaseMapper<SamsCourseElective>
 	 * @return
 	 */
 	Integer[] getStudentCourseCount(Integer id);
+	/**
+	 * 通过节数查询选修课程
+	 * @param subjectTime
+	 * @return
+	 */
+	List<StudentVO> getCourseBySubjectTime(@Param("subjectTime") Integer subjectTime);
 
 	/**
 	 * 获取我的教学课程分页

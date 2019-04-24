@@ -5,6 +5,7 @@ package com.pig4cloud.pig.admin.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pig4cloud.pig.admin.api.dto.ClassScheduleDTO;
 import com.pig4cloud.pig.admin.api.entity.StudentSelection;
 import com.pig4cloud.pig.admin.service.StudentSelectionService;
 import com.pig4cloud.pig.common.core.util.R;
@@ -42,31 +43,30 @@ public class StudentSelectionController {
    * @param id
    * @return R
    */
-  @GetMapping("/{id}")
-  public R getById(@PathVariable("id") Integer id){
-    return new R<>(service.getById(id));
+  @GetMapping("/get")
+  public R getById(){
+    return service.getSchedule();
   }
 
   /**
    * 新增学生课程关联表
-   * @param classRelation 学生课程关联表
    * @return R
    */
   @SysLog("新增学生课程关联表")
   @PostMapping("/create")
-  public R save(@RequestBody StudentSelection studentSelection){
-    return service.create(studentSelection);
+  public R save(){
+    return service.create();
   }
 
   /**
    * 修改学生课程关联表
-   * @param classRelation 学生课程关联表
+   * @param classScheduleDTO 学生课程关联表
    * @return R
    */
   @SysLog("修改学生课程关联表")
   @PostMapping("/update")
-  public R updateById(@RequestBody StudentSelection studentSelection){
-    return new R<>( service.updateById(studentSelection));
+  public R updateById(@RequestBody ClassScheduleDTO classScheduleDTO){
+    return service.updateCourse(classScheduleDTO);
   }
 
   /**
