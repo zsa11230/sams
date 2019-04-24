@@ -63,14 +63,9 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 		if (count > number) {
 			return new R<>(Boolean.FALSE, "班级人数已满!");
 		} else {
-			ClassSchedule schedule = new ClassSchedule();
-			schedule.setScheduleName(baseMapper.getRealNameById(sysUserService.getUserId()) + "的选修课表");
-			schedule.setUserId(sysUserService.getUserId());
-			classScheduleService.save(schedule);
-
 
 		ClassSchedule classSchedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
-			List<SubjectScheduleRelation> list = subjectScheduleRelationService.getRelationListByscheduleId(classSchedule.getId());
+
 			List<ClassScheduleVO> subject = new ArrayList<>();
 			for (Integer i = 0; i < 20; i++) {
 				subject.add(new ClassScheduleVO());
@@ -92,16 +87,23 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 
 			for (SubjectScheduleRelation r : relationList) {
 				Integer subjectId = r.getSubjectId();
-				SamsCourseMajor major = samsCourseMajorService.getById(subjectId);
+				String subjectName = "";
+				if(r.getType().equals(0)){
+					subjectName = samsCourseMajorService.getById(subjectId).getCourseName();
+				}
+				else if(r.getType().equals(1)){
+					subjectName = samsCourseElectiveService.getById(subjectId).getCourseName();
+				}
+
 				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
-				classScheduleVO.setClassName(major.getCourseName());
+				classScheduleVO.setClassName(subjectName);
 				classScheduleVO.setSubjectTime(r.getSubjectTime());
 				classScheduleVO.setId(classSchedule.getId());
 				classScheduleVO.setIsMajor(0);
 				subjectList.set(r.getSubjectTime(), classScheduleVO);
 			}
 
-			return new R<>(relationList,"选课成功！");
+			return new R<>(subjectList,"选课成功！");
 		}
 
 	}
@@ -124,9 +126,15 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 		if (relationList!=null){
 			for(SubjectScheduleRelation r : relationList){
 				Integer subjectId = r.getSubjectId();
-				SamsCourseMajor major = samsCourseMajorService.getById(subjectId);
+				String subjectName = "";
+				if(r.getType().equals(0)){
+					subjectName = samsCourseMajorService.getById(subjectId).getCourseName();
+				}
+				else if(r.getType().equals(1)){
+					subjectName = samsCourseElectiveService.getById(subjectId).getCourseName();
+				}
 				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
-				classScheduleVO.setClassName(major.getCourseName());
+				classScheduleVO.setClassName(subjectName);
 				classScheduleVO.setSubjectTime(r.getSubjectTime());
 				classScheduleVO.setId(schedule.getId());
 				subjectList.set(r.getSubjectTime(),classScheduleVO);
