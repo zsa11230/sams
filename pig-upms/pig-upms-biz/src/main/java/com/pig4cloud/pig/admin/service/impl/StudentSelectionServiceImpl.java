@@ -46,7 +46,7 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 			List<SubjectScheduleRelation> list=subjectScheduleRelationService.getRelationListByscheduleId(scheduleId);
 			for(SubjectScheduleRelation r : list){
 				r.setId(null);
-				r.setScheduleId(scheduleId);
+				r.setScheduleId(schedule.getId());
 				r.setType(0);
 				subjectScheduleRelationService.save(r);
 			}
