@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pig4cloud.pig.admin.api.entity.ClassRelation;
 import com.pig4cloud.pig.admin.api.entity.SamsStudentArchive;
 import com.pig4cloud.pig.admin.api.entity.StudentSelection;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 学生课程关联表
@@ -43,4 +44,13 @@ public interface StudentSelectionMapper extends BaseMapper<StudentSelection> {
 	 * @return
 	 */
 	Integer getScheduleIdByClassId(Integer id);
+
+	/**
+	 * 查询这条记录存不存在
+	 * @param userId
+	 * @param courseId
+	 * @param courseType
+	 * @return
+	 */
+	Integer getScoreIdById(@Param("userId")Integer userId, @Param("courseId")Integer courseId,@Param("courseType") String courseType);
 }

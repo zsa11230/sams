@@ -35,6 +35,7 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 	private final SubjectScheduleRelationService subjectScheduleRelationService;
 	private final ClassScheduleMapper classScheduleMapper;
 	private final SamsCourseMajorService samsCourseMajorService;
+	private final SamsScoreService samsScoreService;
 
 	@Override
 	public R<Boolean> create() {
@@ -49,6 +50,16 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 			r.setScheduleId(schedule.getId());
 			r.setType(0);
 			subjectScheduleRelationService.save(r);
+
+			Integer scoreId=baseMapper.getScoreIdById(sysUserService.getUserId(),r.getSubjectId(),"公共/必修课");
+			if (scoreId==null){
+				SamsScore samsScore=new SamsScore();
+				samsScore.setCourseId(r.getSubjectId());
+				samsScore.setCourseName(samsCourseMajorService.getById(r.getSubjectId()).getCourseName());
+				samsScore.setCourseType("公共/必修课");
+				samsScore.setUserId(sysUserService.getUserId());
+				samsScoreService.save(samsScore);
+			}
 		}
 		return new R<>(Boolean.TRUE, "选课成功！");
 	}
@@ -80,7 +91,12 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 			relation.setSubjectTime(classScheduleDTO.getSubjectTime());
 			relation.setType(1);
 			subjectScheduleRelationService.save(relation);
-
+			SamsScore samsScore=new SamsScore();
+			samsScore.setCourseId(classScheduleDTO.getClassId());
+			samsScore.setCourseName(samsCourseElectiveService.getById(classScheduleDTO.getClassId()).getCourseName());
+			samsScore.setCourseType("公共/选修课");
+			samsScore.setUserId(sysUserService.getUserId());
+			samsScoreService.save(samsScore);
 			List<SubjectScheduleRelation> relationList = subjectScheduleRelationService.getRelationListByscheduleId(classSchedule.getId());
 
 			List<ClassScheduleVO> subjectList = new ArrayList<>();
@@ -130,12 +146,14 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 			for (SubjectScheduleRelation r : relationList) {
 				Integer subjectId = r.getSubjectId();
 				String subjectName = "";
+				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
 				if (r.getType().equals(0)) {
 					subjectName = samsCourseMajorService.getById(subjectId).getCourseName();
+					classScheduleVO.setIsMajor(0);
 				} else if (r.getType().equals(1)) {
 					subjectName = samsCourseElectiveService.getById(subjectId).getCourseName();
+					classScheduleVO.setIsMajor(1);
 				}
-				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
 				classScheduleVO.setClassName(subjectName);
 				classScheduleVO.setSubjectTime(r.getSubjectTime());
 				classScheduleVO.setId(schedule.getId());

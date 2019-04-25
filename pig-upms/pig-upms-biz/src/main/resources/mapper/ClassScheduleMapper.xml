@@ -47,14 +47,13 @@
 			m.class_id = #{id}
 	</select>
 
-	<select id="getScheduleByMajor" resultMap="studentVO">
+	<select id="getStudentById" resultType="int">
 		SELECT
-			m.id,
-			m.course_name as `name`
+			m.user_id
 		FROM
-			sams_course_major m
+			sams_student_archives m
 		WHERE
-			m.class_id = #{id}
+			m.class_id = #{classId}
 	</select>
 
 	<select id="getByUserId" resultMap="classScheduleMap">

@@ -64,5 +64,5 @@ public interface SamsScoreService extends IService<SamsScore> {
 	 * @param samsScore
 	 * @return
 	 */
-	R<Boolean> updateScore(SamsScore samsScore);
+	R updateScore(SamsScore samsScore);
 }

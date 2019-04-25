@@ -42,19 +42,24 @@
 
 	<select id="getStudentByMajor" resultMap="samsScoreMap">
 		SELECT
+		DISTINCT
+		s.*,
 		u.class_id,
-		u.user_id AS `userId`,
-		u.real_name AS `name`
+		u.user_id AS `studentId`,
+		u.real_name AS `realName`
 		FROM
 		sams_student_archives u
 		LEFT JOIN sams_course_major m ON m.class_id = u.class_id
+		LEFT JOIN sams_score s ON s.user_id = u.user_id
 		<where>
-			m.id = #{courseId}
+			s.course_id= #{courseId}
+			and s.course_type='公共/必修课'
 		</where>
 	</select>
 
 	<select id="getStudentByElective" resultMap="samsScoreMap">
 		SELECT
+		DISTINCT
 		s.*, e.real_name AS `realName`,
 		e.user_id AS studentId
 		FROM
@@ -64,6 +69,7 @@
 		LEFT JOIN sams_score s ON s.user_id = e.user_id
 		<where>
 			s.course_id = #{courseId}
+			and s.course_type='公共/选修课'
 			AND h.type = 1
 			AND u.class_id = 0
 		</where>

@@ -41,5 +41,12 @@ public interface ClassScheduleMapper extends BaseMapper<ClassSchedule> {
 	 */
 	ClassSchedule getByUserId(Integer id);
 
+	/**
+	 * 根据班级id获取班级成员
+	 * @param classId
+	 * @return
+	 */
+	Integer[] getStudentById(Integer classId);
+
 
 }

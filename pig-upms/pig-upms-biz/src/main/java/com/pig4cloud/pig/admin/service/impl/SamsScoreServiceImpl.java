@@ -81,14 +81,15 @@ public class SamsScoreServiceImpl extends ServiceImpl<SamsScoreMapper, SamsScore
 	}
 
 	@Override
-	public R<Boolean> updateScore(SamsScore samsScore) {
+	public R updateScore(SamsScore samsScore) {
 		Integer id = samsScore.getId();
 		if (id != null) {
 			baseMapper.updateById(samsScore);
 			return new R<>(Boolean.TRUE,"修改成功");
 		} else {
-			baseMapper.insert(samsScore);
-			return new R<>(Boolean.TRUE, "添加成功！");
+
+				baseMapper.insert(samsScore);
+				return new R<>(samsScore.getId(), "添加成功！");
 		}
 
 	}

@@ -4,18 +4,12 @@
 package com.pig4cloud.pig.admin.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.dto.ClassScheduleDTO;
-import com.pig4cloud.pig.admin.api.entity.ClassSchedule;
-import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
-import com.pig4cloud.pig.admin.api.entity.SamsCourseMajor;
-import com.pig4cloud.pig.admin.api.entity.SubjectScheduleRelation;
+import com.pig4cloud.pig.admin.api.entity.*;
 import com.pig4cloud.pig.admin.api.vo.ClassScheduleVO;
 import com.pig4cloud.pig.admin.api.vo.StudentVO;
 import com.pig4cloud.pig.admin.mapper.ClassScheduleMapper;
 import com.pig4cloud.pig.admin.mapper.SamsClassInformationMapper;
-import com.pig4cloud.pig.admin.service.ClassScheduleService;
-import com.pig4cloud.pig.admin.service.SamsClassInformationService;
-import com.pig4cloud.pig.admin.service.SamsCourseMajorService;
-import com.pig4cloud.pig.admin.service.SubjectScheduleRelationService;
+import com.pig4cloud.pig.admin.service.*;
 import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +32,7 @@ public class ClassScheduleServiceImpl extends ServiceImpl<ClassScheduleMapper, C
 	private final SamsClassInformationService samsClassInformationService;
 	private final SubjectScheduleRelationService subjectScheduleRelationService;
 	private final SamsCourseMajorService samsCourseMajorService;
+	private final SamsScoreService samsScoreService;
 
 	@Override
 	public R<List<ClassScheduleVO>> createClassSchedule(Integer id) {

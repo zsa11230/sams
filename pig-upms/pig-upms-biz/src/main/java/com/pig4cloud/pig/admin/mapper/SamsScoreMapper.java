@@ -31,7 +31,7 @@ public interface SamsScoreMapper extends BaseMapper<SamsScore> {
 	 */
 	Page<SamsScore> getStudentByMajor(Page page, @Param("query") SamsScore samsScore,@Param("courseId")Integer courseId);
 	/**
-	 * 根据专业课程id查询课程内的学生
+	 * 根据选修课程id查询课程内的学生
 	 * @param courseId
 	 */
 	Page<SamsScore> getStudentByElective(Page page, @Param("query") SamsScore samsScore,@Param("courseId")Integer courseId);

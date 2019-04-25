@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pig4cloud.pig.admin.api.entity.ClassRelation;
 import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
+import com.pig4cloud.pig.admin.api.vo.StudentPageVO;
 import com.pig4cloud.pig.common.core.util.R;
 
 import java.util.List;
@@ -46,4 +47,10 @@ public interface SamsClassInformationService extends IService<SamsClassInformati
 	 * @return
 	 */
 	Page<SamsClassInformation> getPage(Page page, SamsClassInformation samsClassInformation);
+	/**
+	 * 根据班级id获取班级所有学生
+	 * @param id
+	 * @return
+	 */
+	Page<StudentPageVO> getClassInfoId(Page page, StudentPageVO studentPageVO,Integer classId);
 }

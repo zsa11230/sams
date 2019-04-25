@@ -16,36 +16,36 @@
 
 package com.pig4cloud.pig.admin.api.vo;
 
+import com.pig4cloud.pig.admin.api.entity.SysRole;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author lengleng
  * @date 2019/2/1
- * 角色Dto
  */
 @Data
-public class ClassScheduleVO implements Serializable {
-
+public class StudentPageVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 课程表Id
+	 * 班级ID
 	 */
-	private Integer id;
+	private Integer classId;
 	/**
-	 * 课程id
+	 * 用户ID
 	 */
-	private String className;
+	private Integer userId;
 	/**
-	 * 上课时间
+	 * 学号
 	 */
-	private Integer subjectTime;
+	private Integer studentId;
 	/**
-	 * 是否是专业课（0是专业课，1是选修课）
+	 * 用户名
 	 */
-	private Integer type;
-	private Integer isMajor;
+	private String realName;
 
 }

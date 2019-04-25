@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
+import com.pig4cloud.pig.admin.api.vo.StudentPageVO;
 import com.pig4cloud.pig.admin.mapper.SamsClassInformationMapper;
 import com.pig4cloud.pig.admin.service.SamsClassInformationService;
 import com.pig4cloud.pig.common.core.util.R;
@@ -48,6 +49,15 @@ public class SamsClassInformationServiceImpl extends ServiceImpl<SamsClassInform
 	@Override
 	public Page<SamsClassInformation> getPage(Page page, SamsClassInformation samsClassInformation) {
 		return baseMapper.getPageList(page,samsClassInformation);
+	}
+
+	@Override
+	public Page<StudentPageVO> getClassInfoId(Page page, StudentPageVO studentPageVO,Integer classId) {
+		if (classId!=null){
+			return baseMapper.getStudentPageList(page,studentPageVO,classId);
+		}else{
+			return null;
+		}
 	}
 
 }

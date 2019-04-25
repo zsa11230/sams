@@ -26,6 +26,13 @@
 		<id property="id" column="id"/>
 		<result property="name" column="name"/>
 	</resultMap>
+
+	<resultMap id="studentPageVO" type="com.pig4cloud.pig.admin.api.vo.StudentPageVO">
+		<id property="classId" column="classId"/>
+		<result property="userId" column="userId"></result>
+		<result property="studentId" column="studentId"></result>
+		<result property="realName" column="realName"/>
+	</resultMap>
 	<select id="getMyClassPage" resultMap="samsClassInformationMap">
 		SELECT
 		u.id,
@@ -70,6 +77,22 @@
 			m.del_flag = 0
 			<if test="query.className != null and query.className != ''">
 				AND m.class_name= #{query.className}
+			</if>
+		</where>
+	</select>
+
+	<select id="getStudentPageList" resultMap="studentPageVO">
+		SELECT
+		m.class_id as classId,
+		m.user_id as userId,
+		m.student_id as studentId,
+		m.real_name as realName
+		FROM
+		sams_student_archives m
+		<where>
+			m.class_id=#{classId}
+			<if test="query.realName != null and query.realName != ''">
+				AND m.realName= #{query.realName}
 			</if>
 		</where>
 	</select>

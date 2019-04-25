@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.pig4cloud.pig.admin.api.entity.ClassRelation;
 import com.pig4cloud.pig.admin.api.entity.SamsClassInformation;
+import com.pig4cloud.pig.admin.api.vo.StudentPageVO;
 import com.pig4cloud.pig.admin.service.SamsClassInformationService;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.AllArgsConstructor;
@@ -65,8 +66,18 @@ public class SamsClassInformationController {
    * @param id id
    * @return R
    */
+  @GetMapping("/student/page")
+  public R<Page<StudentPageVO>> getStudentById(Page page, StudentPageVO studentPageVO,Integer classId){
+    return new R<>(samsClassInformationService.getClassInfoId(page,studentPageVO,classId));
+  }
+
+  /**
+   * 通过id查询班级信息表
+   * @param id id
+   * @return R
+   */
   @GetMapping("/{id}")
-  public R getById(@PathVariable("id") Integer id){
+  public R getById(@PathVariable Integer id){
     return new R<>(samsClassInformationService.getById(id));
   }
 

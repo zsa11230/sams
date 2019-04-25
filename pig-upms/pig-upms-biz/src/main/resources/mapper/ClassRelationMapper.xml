@@ -33,6 +33,7 @@
 
 	<select id="getStudentById" resultMap="samsStudentArchivesMap">
 		SELECT
+		DISTINCT
 		u.*
 		FROM
 		 class_relation h

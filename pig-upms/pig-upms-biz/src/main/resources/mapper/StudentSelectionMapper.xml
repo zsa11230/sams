@@ -54,4 +54,15 @@
 			m.user_id = #{id}
 			and s.user_id=0
 	</select>
+
+	<select id="getScoreIdById" resultType="int">
+		SELECT
+		s.id
+		FROM
+		sams_score s
+		where
+			s.course_id = #{courseId}
+			and s.course_type=#{courseType}
+			AND s.user_id=#{userId}
+	</select>
 </mapper>
