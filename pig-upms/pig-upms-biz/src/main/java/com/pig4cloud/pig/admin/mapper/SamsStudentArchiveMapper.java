@@ -35,4 +35,10 @@ public interface SamsStudentArchiveMapper extends BaseMapper<SamsStudentArchive>
 	 */
 	IPage<StudentVO> getStudentPage(Page page, @Param("query") SamsStudentArchive samsStudentArchive);
 
+	/**
+	 * 获取学生关联班级
+	 * @param id
+	 * @return
+	 */
+	Integer getStudentRelation(Integer id);
 }

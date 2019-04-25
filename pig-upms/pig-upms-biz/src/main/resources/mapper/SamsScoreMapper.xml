@@ -54,16 +54,18 @@
 	</select>
 
 	<select id="getStudentByElective" resultMap="samsScoreMap">
-	SELECT
-	s.*,
-	e.real_name as `realName`,
-	e.user_id as studentId
+		SELECT
+		s.*, e.real_name AS `realName`,
+		e.user_id AS studentId
 		FROM
-		student_selection u
-		left join sams_student_archives e on e.user_id=u.user_id
-		left join sams_score s on s.user_id=e.user_id
+		subject_schedule_relation h
+		LEFT JOIN class_schedule u ON u.id = h.schedule_id
+		LEFT JOIN sams_student_archives e ON e.user_id = u.user_id
+		LEFT JOIN sams_score s ON s.user_id = e.user_id
 		<where>
-			u.course_id = #{courseId}
+			s.course_id = #{courseId}
+			AND h.type = 1
+			AND u.class_id = 0
 		</where>
 	</select>
 

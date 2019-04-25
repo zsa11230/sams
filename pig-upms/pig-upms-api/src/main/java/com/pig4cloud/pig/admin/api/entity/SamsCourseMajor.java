@@ -3,11 +3,14 @@
  */
 package com.pig4cloud.pig.admin.api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Transient;
+
 /**
  * 专业课程
  *
@@ -45,5 +48,11 @@ private static final long serialVersionUID = 1L;
    * 关联班级id
    */
     private Integer classId;
+	/**
+	 * 所属班级
+	 */
+	@TableField(exist = false)
+	@Transient
+	private String className;
   
 }

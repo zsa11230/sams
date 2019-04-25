@@ -38,4 +38,6 @@ public interface SamsStudentArchiveService extends IService<SamsStudentArchive> 
 	 * @return
 	 */
 	IPage<StudentVO> getStudentPage(Page page, SamsStudentArchive samsStudentArchive);
+
+	R deleteById(Integer id);
 }

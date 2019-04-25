@@ -99,7 +99,7 @@ public class SamsStudentArchiveController {
   @SysLog("删除学生档案管理表")
   @PostMapping("/delete/{id}")
   public R removeById(@PathVariable Integer id){
-    return new R<>(samsStudentArchivesService.removeById(id));
+    return samsStudentArchivesService.deleteById(id);
   }
 
 }

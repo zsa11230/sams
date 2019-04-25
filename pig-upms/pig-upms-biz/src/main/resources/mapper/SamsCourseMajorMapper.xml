@@ -16,6 +16,7 @@
 		<result property="credits" column="credits"/>
 		<result property="subjectTime" column="subject_time"/>
 		<result property="classId" column="class_id"/>
+		<result property="className" column="className"/>
 	</resultMap>
 
 	<resultMap id="studentVO" type="com.pig4cloud.pig.admin.api.vo.StudentVO">
@@ -34,10 +35,12 @@
 
 	<select id="getMyMajorClass" resultMap="samsCourseMajorMap">
 		SELECT
-		h.*
+		h.*,
+		n.class_name as `className`
 		FROM
 		sams_student_archives m
 		LEFT JOIN sams_course_major h ON h.course_teacher = m.real_name
+		LEFT JOIN sams_class_information n ON n.id = h.class_id
 		<where>
 		m.user_id=#{userId}
 		<if test="query.courseName != null and query.courseName != ''">

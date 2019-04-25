@@ -42,19 +42,19 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 		schedule.setScheduleName(baseMapper.getRealNameById(sysUserService.getUserId()) + "的选修课表");
 		schedule.setUserId(sysUserService.getUserId());
 		classScheduleService.save(schedule);
-			Integer scheduleId=baseMapper.getScheduleIdByClassId(sysUserService.getUserId());
-			List<SubjectScheduleRelation> list=subjectScheduleRelationService.getRelationListByscheduleId(scheduleId);
-			for(SubjectScheduleRelation r : list){
-				r.setId(null);
-				r.setScheduleId(schedule.getId());
-				r.setType(0);
-				subjectScheduleRelationService.save(r);
-			}
-			return new R<>(Boolean.TRUE, "选课成功！");
+		Integer scheduleId = baseMapper.getScheduleIdByClassId(sysUserService.getUserId());
+		List<SubjectScheduleRelation> list = subjectScheduleRelationService.getRelationListByscheduleId(scheduleId);
+		for (SubjectScheduleRelation r : list) {
+			r.setId(null);
+			r.setScheduleId(schedule.getId());
+			r.setType(0);
+			subjectScheduleRelationService.save(r);
+		}
+		return new R<>(Boolean.TRUE, "选课成功！");
 	}
 
 	@Override
-	public R updateCourse(ClassScheduleDTO classScheduleDTO){
+	public R updateCourse(ClassScheduleDTO classScheduleDTO) {
 
 //验证能否选课
 		SamsCourseElective courseElective = samsCourseElectiveService.getById(classScheduleDTO.getClassId());
@@ -63,8 +63,11 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 		if (count > number) {
 			return new R<>(Boolean.FALSE, "班级人数已满!");
 		} else {
-
-		ClassSchedule classSchedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
+			Integer scheduleId = baseMapper.getScheduleIdByClassId(sysUserService.getUserId());
+			if (scheduleId == null) {
+				return new R<>(null,"未到选课时间，不能选课!");
+			}else {
+			ClassSchedule classSchedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
 
 			List<ClassScheduleVO> subject = new ArrayList<>();
 			for (Integer i = 0; i < 20; i++) {
@@ -88,10 +91,9 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 			for (SubjectScheduleRelation r : relationList) {
 				Integer subjectId = r.getSubjectId();
 				String subjectName = "";
-				if(r.getType().equals(0)){
+				if (r.getType().equals(0)) {
 					subjectName = samsCourseMajorService.getById(subjectId).getCourseName();
-				}
-				else if(r.getType().equals(1)){
+				} else if (r.getType().equals(1)) {
 					subjectName = samsCourseElectiveService.getById(subjectId).getCourseName();
 				}
 
@@ -103,41 +105,41 @@ public class StudentSelectionServiceImpl extends ServiceImpl<StudentSelectionMap
 				subjectList.set(r.getSubjectTime(), classScheduleVO);
 			}
 
-			return new R<>(subjectList,"选课成功！");
+			return new R<>(subjectList, "选课成功！");
+		}
 		}
 
 	}
 
 	@Override
-	public R<List<ClassScheduleVO>> getSchedule(){
+	public R<List<ClassScheduleVO>> getSchedule() {
 		ClassSchedule schedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
 
-		if(schedule==null){
+		if (schedule == null) {
 			this.create();
 			schedule = classScheduleMapper.getByUserId(sysUserService.getUserId());
 		}
 
 		List<SubjectScheduleRelation> relationList = subjectScheduleRelationService.getRelationListByscheduleId(schedule.getId());
 		List<ClassScheduleVO> subjectList = new ArrayList<>();
-		for(Integer i = 0 ; i<20 ; i++){
+		for (Integer i = 0; i < 20; i++) {
 			subjectList.add(new ClassScheduleVO());
 		}
 
-		if (relationList!=null){
-			for(SubjectScheduleRelation r : relationList){
+		if (relationList != null) {
+			for (SubjectScheduleRelation r : relationList) {
 				Integer subjectId = r.getSubjectId();
 				String subjectName = "";
-				if(r.getType().equals(0)){
+				if (r.getType().equals(0)) {
 					subjectName = samsCourseMajorService.getById(subjectId).getCourseName();
-				}
-				else if(r.getType().equals(1)){
+				} else if (r.getType().equals(1)) {
 					subjectName = samsCourseElectiveService.getById(subjectId).getCourseName();
 				}
 				ClassScheduleVO classScheduleVO = new ClassScheduleVO();
 				classScheduleVO.setClassName(subjectName);
 				classScheduleVO.setSubjectTime(r.getSubjectTime());
 				classScheduleVO.setId(schedule.getId());
-				subjectList.set(r.getSubjectTime(),classScheduleVO);
+				subjectList.set(r.getSubjectTime(), classScheduleVO);
 			}
 		}
 

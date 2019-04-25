@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pig4cloud.pig.admin.api.entity.SamsStudentArchive;
 import com.pig4cloud.pig.admin.api.vo.StudentVO;
+import com.pig4cloud.pig.admin.mapper.ClassRelationMapper;
 import com.pig4cloud.pig.admin.mapper.SamsStudentArchiveMapper;
+import com.pig4cloud.pig.admin.service.ClassRelationService;
 import com.pig4cloud.pig.admin.service.SamsStudentArchiveService;
 import com.pig4cloud.pig.admin.service.SysUserService;
 import com.pig4cloud.pig.common.core.util.R;
@@ -30,6 +32,8 @@ import java.util.Calendar;
 @Service
 @AllArgsConstructor
 public class SamsStudentArchiveServiceImpl extends ServiceImpl<SamsStudentArchiveMapper, SamsStudentArchive> implements SamsStudentArchiveService {
+
+	private final ClassRelationMapper classRelationMapper;
 
 	@Override
 	public R<Boolean> create(SamsStudentArchive samsStudentArchive) {
@@ -55,6 +59,21 @@ public class SamsStudentArchiveServiceImpl extends ServiceImpl<SamsStudentArchiv
 	@Override
 	public IPage<StudentVO> getStudentPage(Page page, SamsStudentArchive samsStudentArchive) {
 		return baseMapper.getStudentPage(page,samsStudentArchive);
+	}
+
+	@Override
+	public R deleteById(Integer id) {
+		if (id!=null){
+			Integer relationId =baseMapper.getStudentRelation(id);
+			if (relationId!=null){
+				classRelationMapper.deleteById(relationId);
+			}
+			baseMapper.deleteById(id);
+			return new R<>(Boolean.TRUE,"删除成功！");
+
+		}else{
+			return null;
+		}
 	}
 
 }
